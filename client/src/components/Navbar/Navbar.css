@@ -1,0 +1,33 @@
+.logo {
+    width: 250px;
+    float: left;
+}
+
+.btn-signup {
+
+    float: right;
+    border: 1px red solid;
+
+    width: 8rem;
+    height: 3.5rem;
+    border-radius: 1em;
+    font-size: 20px;
+    color:white;
+    background-color: rgb(83,166,228);
+    border: 1px rgb(83,166,228, 0.0) solid;
+    font-family: century-gothic,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    cursor: pointer;
+    transition: 0.3s background-color ease;
+
+    margin: 15px;
+
+}
+
+.btn-hp-hover:hover {
+    background-color: rgb(83,166,228, 0.1);
+    border: 1px rgb(83,166,228) solid;
+    transition: 0.3s background-color ease;
+
+}
