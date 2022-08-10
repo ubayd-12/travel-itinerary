@@ -1,11 +1,12 @@
 import './App.css';
 // import Homepage from './components/Homepage/Homepage';
-import TripSearch from './components/TripSearch/TripSearch'
+// import Navbar from './components/Navbar/Navbar';
+import Search from './components/Search/Search';
 
 function App() {
   return (
     <div className="App">
-      <TripSearch />
+      <Search />
     </div>
   );
 }

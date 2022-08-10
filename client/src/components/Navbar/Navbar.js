@@ -1,13 +1,14 @@
 import React from 'react'
-import logo from './images/logo.png'
 
-import './Navbar.css'
+import logo from './Images/logo.png'
 
-const Navbar = () => {
-    return <div className='top'>
-        <img className='logo' src={logo} alt="" />
-        <button className='btn-signup btn-hp-hover'>Sign up</button>
-    </div>
+import { Nav } from './NavbarStyle'
+
+const Navbar = ({ bg }) => {
+    return <Nav bg={bg}>
+        <img src={logo} alt="" />
+        <button>Sign up</button>
+    </Nav>
 }
 
 export default Navbar
