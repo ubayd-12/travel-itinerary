@@ -2,22 +2,29 @@ import React from 'react'
 
 import SearchOptionOption from './SearchOptionOption/SearchOptionOption'
 
-import { Container } from './SearchOptionStyle'
+import { Container, Value, Button } from './SearchOptionStyle'
 
-const SearchOption = ({ title, options, optionOptionTitle }) => {
+const SearchOption = ({ title, options }) => {
 
     return <Container>
+        <section className="">
+            <h3>{title}</h3>
+            {options ? (options.map((option) => {
 
-        <h3>{title}</h3>
-        {options.map((item) => {
+                return <>
 
-            return <>
+                    <SearchOptionOption title={option.title} />
 
-                <SearchOptionOption title2={optionOptionTitle} />
+                </>
 
-            </>
-
-        })}
+            })) : (
+                <form action="">
+                    <Button>+</Button>
+                    <Value>1</Value>
+                    <Button>-</Button>
+                </form>
+            )}
+        </section>
 
     </Container>
 

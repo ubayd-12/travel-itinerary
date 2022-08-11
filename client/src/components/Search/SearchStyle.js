@@ -4,7 +4,28 @@ import background from './Images/background.png'
 
 export const Container = styled.div`
 
-height: 100vh;
+    height: 100vh;
+
+    @media screen and (max-width: 675px) {
+        
+        .Main {
+            grid-template-columns: none;
+            grid-template-rows: 100% 0%;
+            grid-template-areas: "map"
+                                 "sidebar";
+        }
+
+        .Main .sidebar {
+
+            position: absolute;
+            top:150px;
+            width: 50vw;
+            background-color: rgb(237, 237, 237, 0.8);
+            border-radius: 10%;
+            
+        }
+
+    }
 
 `;
 

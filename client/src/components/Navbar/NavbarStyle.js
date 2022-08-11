@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const Nav = styled.div`
 
-    background-color: ${props => props.bg || "white"};
+    background-color: ${props => props.bg || undefined};
 
     img {
         width: 250px;

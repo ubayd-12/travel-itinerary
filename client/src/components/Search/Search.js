@@ -10,9 +10,12 @@ import SearchOption from './SearchOption/SearchOption';
 const Search = () => {
     return <Container>
         <Navbar bg={"black"} />
-        <Main>
+        <Main className='Main'>
             <div className="sidebar">
-                <SearchOption title={"People"} options={[{ optionOptionTitle: "test1" }, { optionOptionTitle: "test2" }, { optionOptionTitle: "test3" }]} />
+                <SearchOption className="SearchOption" title="People" options={[{ title: "Adults" }, { title: "Children" }]} />
+                <SearchOption className="SearchOption" title="Rooms" />
+                <SearchOption className="SearchOption" title="Beds" />
+                <SearchOption className="SearchOption" title="Pets" />
             </div>
             <div className="map">
                 <form action="">
