@@ -29,9 +29,19 @@ export const Container = styled.div`
 
     @media screen and (max-width: 675px) {
         
+        form {
+            margin-top: 5px;
+        }
+
         section {
 
-            
+            margin: 15px 0;
+
+        }
+
+        h3 {
+
+            font-size: 1em;
 
         }
 

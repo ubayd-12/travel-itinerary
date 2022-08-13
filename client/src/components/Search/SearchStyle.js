@@ -6,23 +6,51 @@ export const Container = styled.div`
 
     height: 100vh;
 
+    .map-container {
+        height: 100%;
+    }
+
+    .map-container .hotel-pin {
+
+        color: pink;
+        font-size: 25px;
+        background-color: #3e785d;
+        padding:5px;
+        border-radius: 10px;
+
+    }
+
+    .mapboxgl-ctrl {
+
+        margin: 100px 20px;
+        background:none;
+
+    }
+
+    .mapboxgl-ctrl button{
+
+        display: inline;
+        margin: 10px;
+        border: none;
+
+    }
+
     @media screen and (max-width: 675px) {
         
         .Main {
+
+            display: grid;
             grid-template-columns: none;
-            grid-template-rows: 100% 0%;
+            grid-template-rows: 8fr 2fr;
             grid-template-areas: "map"
                                  "sidebar";
+
         }
 
-        .Main .sidebar {
+        .map-container {
 
-            position: absolute;
-            top:150px;
-            width: 50vw;
-            background-color: rgb(237, 237, 237, 0.8);
-            border-radius: 10%;
-            
+            height: 80vh;
+
         }
 
     }
@@ -40,18 +68,18 @@ export const Main = styled.div`
 
         grid-area: sidebar;
         background-color: rgb(237, 237, 237);
+        height: 100%;
 
     }
 
     .map {
         grid-area: map;
-        background-color: red;
-        background-image: url(${background});
-        background-position: center;
-        background-size: cover;
     }
 
     .map form {
+        position: absolute;
+        top: 100px;
+        right: 0;
         float:right;
         margin: 20px 20px 0 0;
     }
@@ -80,6 +108,22 @@ export const Main = styled.div`
         color:white;
         vertical-align: middle;
         font-size: 27px;
+
+    }
+
+    .zoom-buttons {
+
+    position: absolute;
+    top: 170px;
+    right: 30px;
+
+    }
+
+    .zoom-buttons button {
+
+    border-radius: 10px 10px 10px 10px;
+    margin: 10px 10px;
+    cursor: pointer;
 
     }
 
