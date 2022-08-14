@@ -6,7 +6,7 @@ import Navbar from '../Navbar/Navbar'
 
 const Testing = () => {
     return <Container>
-        <Navbar bg={"black"} />
+        <Navbar bg={"black"} pfp={true} />
     </Container>
 }
 

@@ -44,6 +44,12 @@ export const CheckoutDiv = styled.div`
     background-color: rgb(240,240,240);
     height: fit-content;
     padding: 25px;
+
+    @media screen and (max-width: 675px) {
+        
+        margin: 10px;
+
+    }
     
     .indent {
 
@@ -58,6 +64,8 @@ export const CheckoutDiv = styled.div`
             margin: 10px;
 
         }
+
+    }
 
     .bold {
 
@@ -337,6 +345,7 @@ export const CheckoutDiv = styled.div`
             background-color: #53A6E4;
             border-radius: 15px;
             cursor: pointer;
+            text-align: center;
 
         }
 
@@ -349,7 +358,6 @@ export const CheckoutDiv = styled.div`
 
 }
 
-    }
 
 `;
 

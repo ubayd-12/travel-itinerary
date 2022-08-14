@@ -2,6 +2,13 @@ import styled from "styled-components";
 
 export const Container = styled.div`
 
+    @media screen and (max-width: 675px) {
+        
+        display: grid;
+        grid-template-rows: 1fr;
+
+    }
+
     .room-num {
 
         font-weight: 100;
@@ -13,6 +20,22 @@ export const Container = styled.div`
     .room-details {
 
         color:#4B4B4B;
+
+    }
+
+    @media screen and (max-width: 675px) {
+        
+        .room-num {
+
+            margin: 10px 0;
+
+        }
+
+        .room-details {
+
+            margin: 10px 0;
+
+        }
 
     }
 
