@@ -16,9 +16,34 @@ export const Container = styled.div`
 
     }
 
+    .adult-num {
+
+        margin: 10px 10px 10px 50px;
+        font-weight: 200;
+
+    }
+
     form {
 
         margin: 10px 10px 10px 50px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+    }
+
+    @media screen and (max-width: 1060px) {
+        
+        form {
+
+            display: inline;
+
+        }
+
+    }
+
+    form div {
+
+        margin: 10px;
 
     }
 
@@ -35,12 +60,26 @@ export const Container = styled.div`
     form label {
 
         font-size: 18px;
+        color:#4B4B4B;
+        margin-bottom: 5px;
 
     }
 
     form input {
 
-        border: 1px grey solid
+        border: 1px grey solid;
+        width: 70%;
+        height: 45px;
+        padding: 0px 10px;
+        font-size: 19px;
+        font-weight: 100;
+
+    }
+
+    input::placeholder {
+
+        font-weight: 100;
+        font-size: 17px;
 
     }
 
