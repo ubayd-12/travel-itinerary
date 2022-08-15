@@ -2,8 +2,8 @@ const express = require('express')
 
 const router = express.Router()
 
-const { getMap } = require('../controllers/maps')
+const { accountLogin } = require('../controllers/login')
 
-router.get("/", getMap)
+router.post("/", accountLogin)
 
 module.exports = router
