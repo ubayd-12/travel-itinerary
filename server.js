@@ -6,8 +6,6 @@ const bodyParser = require("body-parser")
 
 const cors = require("cors")
 
-const jwt = require('jsonwebtoken')
-
 const PORT = 8000
 
 const connectDB = require('./server-side/db/connection')

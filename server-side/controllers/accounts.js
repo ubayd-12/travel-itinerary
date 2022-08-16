@@ -1,37 +1,14 @@
 const accounts = require('../models/accounts.js')
 
-const getAccounts = (req, res) => {
+const getAccounts = async (req, res) => {
 
-    res.status(200).send("Get accounts")
-
-}
-
-
-const createAccount = (req, res) => {
-
-    res.status(200).send("Create account")
+    try {
+        const accountsArr = await accounts.find()
+        return res.status(200).json(accountsArr)
+    } catch (err) {
+        return res.status(400).json({ msg: err })
+    }
 
 }
 
-
-const getSingleAccount = (req, res) => {
-
-    res.status(200).send("Get single accounts")
-
-}
-
-
-const deleteAccount = (req, res) => {
-
-    res.status(200).send("Delete account")
-
-}
-
-
-const updateAccount = (req, res) => {
-
-    res.status(200).send("Update account")
-
-}
-
-module.exports = { getAccounts, createAccount, getSingleAccount, deleteAccount, updateAccount }
+module.exports = { getAccounts }

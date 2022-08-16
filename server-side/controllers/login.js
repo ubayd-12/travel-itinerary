@@ -6,10 +6,10 @@ const jwt = require('jsonwebtoken')
 
 const accountLogin = async (req, res) => {
 
-    try {
+    const username = req.body.username
+    const password = req.body.password
 
-        const username = req.body.username
-        const password = req.body.password
+    if (username && password) {
 
         try {
 
@@ -23,20 +23,20 @@ const accountLogin = async (req, res) => {
                         const accessToken = jwt.sign({ username: user.username }, "4kjrklfjdskaljfk")
                         return res.status(200).json({ msg: "Logged in", user, access_token: accessToken })
                     } catch (err) {
-                        return res.status(450).send("Could not sterilize")
+                        return res.status(450).json({ msg: "Could not sterilize" })
                     }
                 } else {
-                    return res.status(400).send("Incorrect password!")
+                    return res.status(400).json({ msg: "Incorrect password!" })
                 }
             } catch (err) {
 
             }
 
         } catch (err) {
-            res.status(411).json("User does not exist")
+            res.status(411).json({ msg: "User does not exist" })
         }
-    } catch (err) {
-        return res.status(400).send("Network Err")
+    } else {
+        return res.status(400).json({ msg: "Field missing!" })
     }
 
 

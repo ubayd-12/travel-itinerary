@@ -34,11 +34,19 @@ export const Container = styled.div`
 
         }
 
+        .success-intro, .success-family, .success-login {
+
+            text-align: center;
+            margin: 10px;
+            font-weight:100;
+        
+        }
+
         form {
 
             width: fit-content;
             margin: 20px auto;
-            padding: 20px 0;
+            padding: 10px 0;
             border-top: 1px white solid;
             position: relative;
 
@@ -112,6 +120,15 @@ export const Container = styled.div`
             color: white;
             border-radius: 15px;
             cursor: pointer;
+
+        }
+
+        form .error {
+            
+            color: red;
+            margin-top: 10px;
+            font-size: 15px;
+            font-weight: 100;
 
         }
 

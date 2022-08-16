@@ -13,10 +13,10 @@ const registerAccount = async (req, res) => {
                     const newUser = await accounts.create({ firstName: req.body.firstName, lastName: req.body.lastName, dob: req.body.dob, username: req.body.username, password: hashedPassword })
                     return res.status(201).json(newUser)
                 } else {
-                    return res.status(400).send("Username not available!")
+                    return res.status(400).json({ msg: "Username not available!" })
                 }
             } else {
-                return res.status(400).send("Passwords don't match")
+                return res.status(400).json({ msg: "Passwords don't match" })
             }
 
         } catch (err) {
@@ -24,7 +24,7 @@ const registerAccount = async (req, res) => {
         }
 
     } else {
-        return res.status(400).send("Missing a field!")
+        return res.status(400).json({ msg: "Missing a field!" })
     }
 }
 

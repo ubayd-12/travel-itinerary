@@ -2,16 +2,10 @@ const express = require('express')
 
 const router = express.Router()
 
-const { getAccounts, createAccount, getSingleAccount, deleteAccount, updateAccount } = require('../controllers/accounts')
+const authUser = require('../middleware/login/authUser')
 
-router.get("/", getAccounts)
+const { getAccounts } = require('../controllers/accounts')
 
-router.post("/", createAccount)
-
-router.get("/:id", getSingleAccount)
-
-router.delete("/:id", deleteAccount)
-
-router.patch("/:id", updateAccount)
+router.get("/", authUser, getAccounts)
 
 module.exports = router
