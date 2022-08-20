@@ -44,7 +44,8 @@ const Login = () => {
         e.preventDefault()
 
         try {
-            await login.post("/login", val)
+            const res = await login.post("/login", val)
+            console.log(res.data)
             redirect("/profile")
         } catch (err) {
             setResult(prevState => "fail")

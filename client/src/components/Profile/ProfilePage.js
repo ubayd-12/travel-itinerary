@@ -6,6 +6,7 @@ import { Container, SettingSectionContainer } from './ProfilePageStyle'
 import ProfilePic from './ProfilePic/ProfilePic'
 
 const ProfilePage = () => {
+
     return <Container>
 
         <Navbar bg={"black"} />

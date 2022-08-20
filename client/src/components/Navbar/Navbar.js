@@ -11,6 +11,7 @@ import NavbarOption from './NavbarOption/NavbarOption'
 import ProfilePic from '../Profile/ProfilePic/ProfilePic'
 
 const Navbar = ({ bg, pfp }) => {
+
     return <Nav bg={bg}>
         <Link to='/'><img src={logo} alt="" /></Link>
         <div className="options">
@@ -21,7 +22,6 @@ const Navbar = ({ bg, pfp }) => {
             <Link to='/sign-in'>
                 <button>Sign in</button>
             </Link>
-
         </div>
 
     </Nav>

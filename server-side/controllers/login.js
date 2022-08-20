@@ -4,6 +4,10 @@ const bcrypt = require('bcrypt')
 
 const jwt = require('jsonwebtoken')
 
+require("dotenv").config()
+
+const { createAccessToken, createRefreshToken } = require('../functions/jwtSignFunctions')
+
 const accountLogin = async (req, res) => {
 
     const username = req.body.username
@@ -20,7 +24,7 @@ const accountLogin = async (req, res) => {
             try {
                 if (await bcrypt.compare(password, user.password)) {
                     try {
-                        const accessToken = jwt.sign({ username: user.username }, "4kjrklfjdskaljfk")
+                        const accessToken = createAccessToken(user.username)
                         return res.status(200).json({ msg: "Logged in", user, access_token: accessToken })
                     } catch (err) {
                         return res.status(450).json({ msg: "Could not sterilize" })
