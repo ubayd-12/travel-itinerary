@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+
+import { UserContext } from '../../../UserContext'
 
 import axios from 'axios'
 
@@ -15,6 +17,8 @@ import { ImFacebook } from "react-icons/im";
 import { GoLocation } from "react-icons/go";
 
 const Login = () => {
+
+    const { setUser } = useContext(UserContext)
 
     const [val, setVal] = useState({ username: "", password: "" })
 
@@ -45,7 +49,7 @@ const Login = () => {
 
         try {
             const res = await login.post("/login", val)
-            console.log(res.data)
+            setUser(prevState => res.data.user)
             redirect("/profile")
         } catch (err) {
             setResult(prevState => "fail")

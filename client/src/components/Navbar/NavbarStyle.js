@@ -42,6 +42,12 @@ export const Nav = styled.div`
         margin-left:auto;
     }
 
+    .options a {
+
+        text-decoration: none;
+
+    }
+
     .options > *{
 
         margin: 0 15px;
