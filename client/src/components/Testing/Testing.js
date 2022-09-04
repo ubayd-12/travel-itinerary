@@ -4,28 +4,32 @@ import { Container } from './TestingStyle'
 
 import Navbar from '../Navbar/Navbar'
 
+import axios from 'axios'
+
 const Testing = () => {
 
-    const [val, setVal] = useState({ first: "", second: "", third: "" })
+    const testA = axios.create({
+        baseURL: "http://localhost:8000",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+    const [val, setVal] = useState("nulla")
 
-    const handleChange = (e) => {
+    const getInfo = async () => {
 
-        const name = e.target.name
-        const value = e.target.value
-
-        console.log(name)
-
-        setVal({ ...val, [name]: value })
+        const res = await testA.post("/test")
+        console.log(res.data.username)
+        setVal(prevState => res.data.username)
 
     }
 
     return <Container>
         <Navbar bg={"black"} pfp={true} />
-        <form action="submit">
-            <input type="text" name='first' value={val.first} onChange={handleChange} />
-            <input type="text" name='second' value={val.second} onChange={handleChange} />
-            <input type="text" name='third' value={val.third} onChange={handleChange} />
-        </form>
+        <div>
+            <h3>{val}</h3>
+            <button onClick={getInfo}>Get the info</button>
+        </div>
     </Container>
 }
 

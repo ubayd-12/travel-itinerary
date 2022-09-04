@@ -3,11 +3,10 @@ const accounts = require('../models/accounts')
 const bcrypt = require('bcrypt')
 
 const registerAccount = async (req, res) => {
-
     if (req.body.firstName && req.body.lastName && req.body.dob && req.body.username && req.body.password && req.body.confirmPassword) {
-
         try {
             if (req.body.password === req.body.confirmPassword) {
+                res.setHeader("Set-Cookie", "test=true")
                 if ((await accounts.findOne({ username: req.body.username })) === null) {
                     const hashedPassword = await bcrypt.hash(req.body.password, 10)
                     const newUser = await accounts.create({ firstName: req.body.firstName, lastName: req.body.lastName, dob: req.body.dob, username: req.body.username, password: hashedPassword })

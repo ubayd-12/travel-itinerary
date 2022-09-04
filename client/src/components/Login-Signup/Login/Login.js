@@ -48,7 +48,7 @@ const Login = () => {
         e.preventDefault()
 
         try {
-            const res = await login.post("/login", val)
+            const res = await axios.post("/login", val)
             setUser(prevState => res.data.user)
             redirect("/profile")
         } catch (err) {
@@ -57,10 +57,6 @@ const Login = () => {
         }
 
     }
-
-    const login = axios.create({
-        baseURL: "http://localhost:8000"
-    })
 
     if (result === "sign-in") {
         return <div>

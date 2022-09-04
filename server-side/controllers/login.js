@@ -4,13 +4,12 @@ const bcrypt = require('bcrypt')
 
 require("dotenv").config()
 
-const accountLogin = async (req, res) => {
+const { createAccessToken, createRefreshToken } = require('../functions/authFunctions')
 
+const accountLogin = async (req, res) => {
     const username = req.body.username
     const password = req.body.password
-
     if (username && password) {
-
         try {
 
             const user = await accounts.findOne({ username: username })
@@ -20,7 +19,12 @@ const accountLogin = async (req, res) => {
             try {
                 if (await bcrypt.compare(password, user.password)) {
                     try {
-                        return res.status(200).json({ msg: "Logged in", user })
+                        const token = createAccessToken(user._id)
+                        res.cookie("jwt", token, {
+                            httpOnly: true,
+                            maxAge: 3600000
+                        })
+                        return res.status(200).json({ msg: "Logged in", id: user._id })
                     } catch (err) {
                         return res.status(450).json({ msg: "Could not sterilize" })
                     }
@@ -37,7 +41,6 @@ const accountLogin = async (req, res) => {
     } else {
         return res.status(400).json({ msg: "Field missing!" })
     }
-
 
 }
 

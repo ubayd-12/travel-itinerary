@@ -1,4 +1,6 @@
-import { React, useRef, useState, useEffect } from 'react'
+import { React, useState } from 'react'
+
+import axios from 'axios'
 
 import Map, { Marker, NavigationControl } from 'react-map-gl';
 
@@ -11,22 +13,50 @@ import SearchOption from './SearchOption/SearchOption';
 
 import { MdHotel } from "react-icons/md";
 
-const aFetch = async (url) => {
+// const aFetch = async (url) => {
 
-    const res = await fetch(url)
-    const data = await res.json()
+//     const res = await fetch(url)
+//     const data = await res.json()
 
-    return data
+//     return data
 
-}
+// }
 
-const data = aFetch("https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json")
+// const data = aFetch("https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json")
 
-console.log(data)
+// console.log(data)
 
 const Search = () => {
 
-    return <Container>
+    const [loading, setLoading] = useState(true)
+
+    const [error, setError] = useState(false)
+
+    const verify = async () => {
+
+        try {
+            const res = await axios.get("http://localhost:8000/protected", { headers: { "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlwiNjJmOWI5Njk3NDkzYTQ5ZDFhNTg4ZGVhXCIiLCJpYXQiOjE2NjIyNDk3OTksImV4cCI6MTY2MjI1MzM5OX0.W8LQfybBeV5_fZ5VxLcwYTC6alEompWXzYPZrMJue08` } })
+            console.log(res.data)
+            setLoading(prevState => false)
+        } catch (err) {
+            setError(prevState => true)
+        }
+
+    }
+
+    verify()
+
+    if (loading && error) return <Container>
+        <Navbar bg={"black"} />
+        <h1>Error</h1>
+    </Container>
+
+    if (loading) return <Container>
+        <Navbar bg={"black"} />
+        <h1>Loading</h1>
+    </Container>
+
+    if (!loading) return <Container>
         <Navbar bg={"black"} />
         <Main className='Main'>
             <div className="sidebar">

@@ -20,6 +20,10 @@ const login = require('./server-side/routes/login')
 
 const users = require('./server-side/routes/users')
 
+const test = require('./server-side/routes/test')
+
+const protected = require('./server-side/routes/protected')
+
 const app = express()
 
 app.use(express.json())
@@ -30,9 +34,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(bodyParser.json())
 
-app.use(cors({
-    origin: "http://localhost:3000"
-}))
+const corsOptions = {
+    origin: true, //included origin as true
+    credentials: true, //included credentials as true
+};
+
+app.use(cors(corsOptions))
 
 app.use("/accounts", accounts)
 
@@ -42,8 +49,13 @@ app.use("/login", login)
 
 app.use("/users", users)
 
+app.use("/test", test)
+
+app.use("/protected", protected)
+
 app.get("/", (req, res) => {
 
+    res.cookie("test", "true")
     res.status(201).send("Homepage")
 
 })

@@ -12,10 +12,15 @@ const AccountSchema = mongoose.Schema({
         required: true
     }, username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     }, password: {
         type: String,
-        required: true
+        required: true,
+        minlength: 8
+    }, refreshToken: {
+        type: String,
+        required: false
     }
 })
 

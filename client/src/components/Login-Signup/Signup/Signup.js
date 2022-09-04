@@ -37,7 +37,7 @@ const Signup = () => {
 
         e.preventDefault()
         try {
-            await register.post("/register", val)
+            await axios.post("http://localhost:8000/register", val)
             setResult(prevState => "success")
             redirect("/sign-in")
         } catch (err) {
@@ -54,11 +54,6 @@ const Signup = () => {
         setVal({ ...val, [name]: value })
 
     }
-
-    const register = axios.create({
-        baseURL: "http://localhost:8000"
-    })
-
     if (result === "signup") {
 
         return <div>
