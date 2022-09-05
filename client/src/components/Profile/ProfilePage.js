@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { UserContext } from '../../UserContext'
 
 import Navbar from '../Navbar/Navbar'
 
@@ -7,8 +6,6 @@ import { Container, SettingSectionContainer } from './ProfilePageStyle'
 import ProfilePic from './ProfilePic/ProfilePic'
 
 const ProfilePage = () => {
-
-    const { user } = useContext(UserContext)
 
     return <Container>
 
@@ -24,8 +21,8 @@ const ProfilePage = () => {
                 <div className="profile-pic">
                     <ProfilePic size={"170px"} edit="true" />
                 </div>
-                {user && (<div><h4 className='username'>@{user.username}</h4>
-                    <h3 className='name'>{user.firstName} {user.lastName}</h3></div>)}
+                <div><h4 className='username'>@ubayd_12</h4>
+                    <h3 className='name'>Ubayd Sharif</h3></div>
                 <h3 className='points-text'>Available Points</h3>
                 <h4 className='points-value'>1,245</h4>
                 <h3 className='member-since'>Member since 2007</h3>

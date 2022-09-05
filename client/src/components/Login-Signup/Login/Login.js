@@ -1,7 +1,5 @@
 import React, { useState, useContext } from 'react'
 
-import { UserContext } from '../../../UserContext'
-
 import axios from 'axios'
 
 import { Link, useNavigate } from 'react-router-dom'
@@ -17,8 +15,6 @@ import { ImFacebook } from "react-icons/im";
 import { GoLocation } from "react-icons/go";
 
 const Login = () => {
-
-    const { setUser } = useContext(UserContext)
 
     const [val, setVal] = useState({ username: "", password: "" })
 
@@ -47,14 +43,14 @@ const Login = () => {
 
         e.preventDefault()
 
-        try {
-            const res = await axios.post("/login", val)
-            setUser(prevState => res.data.user)
-            redirect("/profile")
-        } catch (err) {
-            setResult(prevState => "fail")
-            setErr(prevState => err.response.data.msg)
-        }
+        // try {
+        //     const res = await axios.post("/login", val)
+        //     setUser(prevState => res.data.user)
+        //     redirect("/profile")
+        // } catch (err) {
+        //     setResult(prevState => "fail")
+        //     setErr(prevState => err.response.data.msg)
+        // }
 
     }
 
