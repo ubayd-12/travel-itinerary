@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import { useUser } from '../../../hooks/useUser'
 
 import axios from 'axios'
 
@@ -15,6 +16,8 @@ import { ImFacebook } from "react-icons/im";
 import { GoLocation } from "react-icons/go";
 
 const Login = () => {
+
+    const { dispatch } = useUser()
 
     const [val, setVal] = useState({ username: "", password: "" })
 
@@ -43,14 +46,15 @@ const Login = () => {
 
         e.preventDefault()
 
-        // try {
-        //     const res = await axios.post("/login", val)
-        //     setUser(prevState => res.data.user)
-        //     redirect("/profile")
-        // } catch (err) {
-        //     setResult(prevState => "fail")
-        //     setErr(prevState => err.response.data.msg)
-        // }
+        try {
+            const res = await axios.post("/login", val)
+            dispatch({ type: "login", payload: res.data })
+            localStorage.setItem('user', JSON.stringify(res.data))
+            redirect("/profile")
+        } catch (err) {
+            setResult(prevState => "fail")
+            setErr(prevState => err.response.data.msg)
+        }
 
     }
 

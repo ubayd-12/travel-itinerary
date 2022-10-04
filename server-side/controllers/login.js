@@ -24,7 +24,7 @@ const accountLogin = async (req, res) => {
                             httpOnly: true,
                             maxAge: 3600000
                         })
-                        return res.status(200).json({ msg: "Logged in", id: user._id })
+                        return res.status(200).json({ msg: "Logged in", id: user._id, firstName: user.firstName, lastName: user.lastName, username: user.username, jwt: token })//I think mine is only sending back the ID but we'll see
                     } catch (err) {
                         return res.status(450).json({ msg: "Could not sterilize" })
                     }

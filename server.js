@@ -24,6 +24,8 @@ const test = require('./server-side/routes/test')
 
 const protected = require('./server-side/routes/protected')
 
+const photoUploads = require('./server-side/routes/photoUploads')
+
 const app = express()
 
 app.use(express.json())
@@ -52,6 +54,8 @@ app.use("/users", users)
 app.use("/test", test)
 
 app.use("/protected", protected)
+
+app.use('/api/uploads', photoUploads)
 
 app.get("/", (req, res) => {
 

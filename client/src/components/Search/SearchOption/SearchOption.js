@@ -9,11 +9,11 @@ const SearchOption = ({ title, options }) => {
     return <Container>
         <section className="">
             <h3>{title}</h3>
-            {options ? (options.map((option) => {
-
+            {options ? (options.map((option, index) => {
+                console.log("The current iteration is: " + index)
                 return <>
 
-                    <SearchOptionOption title={option.title} />
+                    <SearchOptionOption key={index} title={option.title} />
 
                 </>
 

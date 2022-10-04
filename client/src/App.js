@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useUser } from './hooks/useUser';
 import './App.css';
 import { Route, Routes } from 'react-router-dom'
 import Homepage from './components/Homepage/Homepage'
@@ -10,7 +11,18 @@ import Testing from './components/Testing/Testing';
 
 function App() {
 
+  const { dispatch } = useUser()
+
+  useEffect(() => {
+
+    const userData = JSON.parse(localStorage.getItem("user"))
+
+    dispatch({ type: "login", payload: userData })
+
+  }, [])
+
   return <div className='App'>
+
     <Routes>
       <Route path='/sign-in' element={<Login />}></Route>
       <Route path='/sign-up' element={<Signup />}></Route>
