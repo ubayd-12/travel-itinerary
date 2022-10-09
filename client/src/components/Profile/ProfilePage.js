@@ -31,7 +31,6 @@ const ProfilePage = () => {
     }
 
     const previewFile = (file) => {
-
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
@@ -46,7 +45,11 @@ const ProfilePage = () => {
 
         console.log("submitting")
 
-        if (!previewSource) return;
+        // if (!previewSource) return;
+
+        // console.log(previewSource)
+
+
 
         uploadImage(previewSource)
 
@@ -54,16 +57,11 @@ const ProfilePage = () => {
 
     const uploadImage = async (base64EncodedImage) => {
 
-        // console.log(base64EncodedImage);
+        // console.log(typeof (base64EncodedImage));
 
         try {
-            // await axios.post("/api/upload", JSON.stringify({ data: base64EncodedImage }), {
-            //     headers: {
-            //         'Conent-type': 'application/json'
-            //     }
-            // })
 
-            await fetch("/api/upload", {
+            await fetch("/api/uploads", {
                 method: "POST",
                 body: JSON.stringify({ data: base64EncodedImage }),
                 headers: {
@@ -76,6 +74,8 @@ const ProfilePage = () => {
         }
 
     }
+
+    // console.log(user.profilePicture)
 
     return <Container>
 
@@ -90,10 +90,11 @@ const ProfilePage = () => {
             {user ? <div className="sidebar">
                 <div className="profile-pic">
                     <ProfilePic size={"170px"} edit="true" />
-                    <form action="" onSubmit={handleFileSubmit}>
+                    <form className='img-form' action="" onSubmit={handleFileSubmit}>
                         <input type="file" name="image" onChange={handleFileInputChange} value={upload} className="upload-image"></input>
                         <button className='btn' type='submit'>Submit</button>
                     </form>
+
                 </div>
                 <div><h4 className='username'>@{user.username}</h4>
                     <h3 className='name'>{user.firstName} {user.lastName}</h3></div>

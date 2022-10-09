@@ -29,6 +29,16 @@ export const Container = styled.div`
 
     }
 
+    .profile-pic form {
+
+        top: 300px;
+        text-align: center;
+        position: absolute;
+        z-index: 9;
+        background-color: red;
+
+    }
+
     .main {
         grid-area: main;
         margin: 30px 50px;
