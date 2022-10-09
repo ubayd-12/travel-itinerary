@@ -1,5 +1,7 @@
 const { cloudinary } = require('../utils/cloudinary')
 
+const accounts = require('../models/accounts')
+
 const uploadImage = async (req, res) => {
 
     try {
@@ -8,12 +10,30 @@ const uploadImage = async (req, res) => {
             upload_preset: 'profile_pictures'
         })
         console.log(uploadReponse.url)
-        res.status(210).send("ok")
+        res.status(210).json({ url: uploadReponse.url })
     } catch (err) {
         console.log(err)
-        res.status(410).send("fail")
+        res.status(456).send("fail")
     }
 
 }
 
-module.exports = { uploadImage }
+const setProfilePicture = async (req, res) => {
+
+    try {
+        console.log(req.body)
+        console.log(req.body.id)
+        console.log(req.body.url)
+        await accounts.findByIdAndUpdate(req.body.id, { profilePicture: req.body.url })
+        res.status(211).json({ msg: "Profile picture succesfully updated" })
+
+    } catch (err) {
+
+        console.log(err)
+        res.status(444).json({ msg: "failed" })
+
+    }
+
+}
+
+module.exports = { uploadImage, setProfilePicture }

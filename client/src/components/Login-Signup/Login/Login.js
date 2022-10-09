@@ -10,9 +10,7 @@ import { Container, LoginSignupWithContainer } from '../DefaultStyle'
 import Navbar from '../../Navbar/Navbar'
 
 import { AiOutlineGoogle } from "react-icons/ai";
-
 import { ImFacebook } from "react-icons/im";
-
 import { GoLocation } from "react-icons/go";
 
 const Login = () => {

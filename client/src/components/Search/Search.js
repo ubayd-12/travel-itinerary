@@ -53,6 +53,7 @@ const Search = () => {
     //     <Navbar bg={"black"} />
     //     <h1>Loading</h1>
     // </Container>
+
     return <Container>
         <Navbar bg={"black"} />
         <Main className='Main'>

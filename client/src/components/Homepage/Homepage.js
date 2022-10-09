@@ -3,7 +3,6 @@ import React from 'react'
 import Navbar from '../Navbar/Navbar'
 
 import { Container, Grid, Search, Intro } from './HomepageStyle'
-
 import { GoLocation } from "react-icons/go";
 
 const Homepage = () => {

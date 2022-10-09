@@ -15,62 +15,6 @@ const ProfilePage = () => {
 
     console.log(user)
 
-    const [upload, setUpload] = useState('');
-    const [previewSource, setPreviewSource] = useState('');
-
-    const handleFileInputChange = (e) => {
-        const file = e.target.files[0]
-
-        previewFile(file)
-    }
-
-    const previewFile = (file) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            setPreviewSource(reader.result)
-        }
-
-    }
-
-    const handleFileSubmit = (e) => {
-
-        e.preventDefault();
-
-        console.log("submitting")
-
-        // if (!previewSource) return;
-
-        // console.log(previewSource)
-
-
-
-        uploadImage(previewSource)
-
-    }
-
-    const uploadImage = async (base64EncodedImage) => {
-
-        // console.log(typeof (base64EncodedImage));
-
-        try {
-
-            await fetch("/api/uploads", {
-                method: "POST",
-                body: JSON.stringify({ data: base64EncodedImage }),
-                headers: {
-                    "Content-type": "application/json"
-                }
-            })
-
-        } catch (err) {
-            console.log(err)
-        }
-
-    }
-
-    // console.log(user.profilePicture)
-
     return <Container>
 
         <Navbar bg={"black"} />
@@ -84,10 +28,6 @@ const ProfilePage = () => {
             {user ? <div className="sidebar">
                 <div className="profile-pic">
                     <ProfilePic size={"170px"} edit="true" />
-                    {/* <form className='img-form' action="" onSubmit={handleFileSubmit}>
-                        <input type="file" name="image" onChange={handleFileInputChange} value={upload} className="upload-image"></input>
-                        <button className='btn' type='submit'>Submit</button>
-                    </form> */}
 
                 </div>
                 <div><h4 className='username'>@{user.username}</h4>

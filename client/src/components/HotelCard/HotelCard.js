@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Container } from './HotelCardStyle'
-
 import image from './Images/image.jpg'
 
 const HotelCard = () => {

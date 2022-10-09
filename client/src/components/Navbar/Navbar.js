@@ -20,7 +20,8 @@ const Navbar = ({ bg, pfp }) => {
                 <NavbarOption title={"Map"} />
             </Link>
             <NavbarOption title={"Support"} />
-            {pfp ? <ProfilePic size={"60px"} border={"0.5px white solid"} /> : undefined}
+            {/* {pfp ? <ProfilePic size={"60px"} border={"0.5px white solid"} /> : undefined} */}
+            {user && <Link to="/profile"><ProfilePic size={"60px"} border={"0.5px white solid"} /></Link>}
             {user ? <Link to='/'>
                 <button onClick={() => { dispatch({ type: "logout" }); localStorage.removeItem('user'); }}>Log out</button>
             </Link> : <Link to='/sign-in'>

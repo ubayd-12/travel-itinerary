@@ -3,15 +3,10 @@ import React from 'react'
 import { Container, CheckoutDiv } from './CheckoutStyle'
 
 import { AiFillCreditCard } from "react-icons/ai";
-
 import { BsShieldFillCheck } from "react-icons/bs";
-
 import { FaArrowRight } from "react-icons/fa";
 
-
-
 import Navbar from '../Navbar/Navbar'
-
 import RoomCheckout from './RoomCheckout/RoomCheckout'
 import Payment from '../Payment/Payment'
 import HotelCard from '../HotelCard/HotelCard'
