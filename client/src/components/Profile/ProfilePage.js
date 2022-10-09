@@ -13,13 +13,7 @@ const ProfilePage = () => {
 
     const { user, dispatch } = useUser()
 
-    // useEffect(() => {
-
-    //     const userData = JSON.parse(localStorage.getItem("user"))
-
-    //     dispatch({ type: "login", payload: userData })
-
-    // }, [])
+    console.log(user)
 
     const [upload, setUpload] = useState('');
     const [previewSource, setPreviewSource] = useState('');
@@ -90,10 +84,10 @@ const ProfilePage = () => {
             {user ? <div className="sidebar">
                 <div className="profile-pic">
                     <ProfilePic size={"170px"} edit="true" />
-                    <form className='img-form' action="" onSubmit={handleFileSubmit}>
+                    {/* <form className='img-form' action="" onSubmit={handleFileSubmit}>
                         <input type="file" name="image" onChange={handleFileInputChange} value={upload} className="upload-image"></input>
                         <button className='btn' type='submit'>Submit</button>
-                    </form>
+                    </form> */}
 
                 </div>
                 <div><h4 className='username'>@{user.username}</h4>

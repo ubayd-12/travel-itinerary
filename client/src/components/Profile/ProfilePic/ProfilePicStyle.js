@@ -5,7 +5,8 @@ import img from './Images/profile-pic.png'
 
 export const Container = styled.div`
 
-    background-image: url(${img});
+    /* background-image: url(${img}); */
+    background-image: url(${props => props.profilePictureURL});
     background-position: center;
     background-size: cover;
     height: ${props => props.size};

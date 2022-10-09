@@ -18,6 +18,10 @@ const AccountSchema = mongoose.Schema({
         type: String,
         required: true,
         minlength: 8
+    }, profilePicture: {
+        type: String,
+        required: false,
+        default: "https://res.cloudinary.com/dy1u0nvh8/image/upload/v1665289263/profile_pictures/istockphoto-470100848-612x612_tofji5.jpg"
     }, refreshToken: {
         type: String,
         required: false
