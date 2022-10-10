@@ -13,10 +13,11 @@ const getUsers = async (req, res) => {
 
 const getSingleUser = async (req, res) => {
     try {
-        const user = await accounts.findById(req.params.id)
-        res.status(200).json(user)
+        const user = await accounts.findOne({ _id: req.body.id })
+        console.log(user)
+        return res.status(200).json({ id: user._id, firstName: user.firstName, lastName: user.lastName, username: user.username, jwt: user.jwt, profilePicture: user.profilePicture })
     } catch (err) {
-        res.sendStatus(400)
+        return res.sendStatus(422)
     }
 }
 

@@ -9,7 +9,6 @@ const uploadImage = async (req, res) => {
         const uploadReponse = await cloudinary.uploader.upload(image, {
             upload_preset: 'profile_pictures'
         })
-        console.log(uploadReponse.url)
         res.status(210).json({ url: uploadReponse.url })
     } catch (err) {
         console.log(err)
@@ -21,9 +20,6 @@ const uploadImage = async (req, res) => {
 const setProfilePicture = async (req, res) => {
 
     try {
-        console.log(req.body)
-        console.log(req.body.id)
-        console.log(req.body.url)
         await accounts.findByIdAndUpdate(req.body.id, { profilePicture: req.body.url })
         res.status(211).json({ msg: "Profile picture succesfully updated" })
 

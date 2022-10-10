@@ -6,6 +6,8 @@ import { useUser } from '../../../hooks/useUser'
 
 import axios from 'axios'
 
+import { updateUserStorage } from '../../../functions/set-user'
+
 const ProfilePic = ({ size, edit, border }) => {
 
     const { user } = useUser()
@@ -28,7 +30,7 @@ const ProfilePic = ({ size, edit, border }) => {
 
     }
 
-    const handleFileSubmit = (e) => {
+    const handleFileSubmit = async (e) => {
 
         // e.preventDefault();
 
@@ -41,6 +43,22 @@ const ProfilePic = ({ size, edit, border }) => {
 
 
         uploadImage(previewSource)
+
+        try {
+
+            const res = await axios.post("/users", {
+                id: user.id
+            })
+
+            console.log(res.data)
+
+            updateUserStorage(JSON.stringify(res.data))
+
+            // window.location.reload();
+
+        } catch (err) {
+            console.log(err)
+        }
 
     }
 

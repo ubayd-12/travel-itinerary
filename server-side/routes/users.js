@@ -6,6 +6,6 @@ const router = express.Router()
 
 router.get("/admin", getUsers)
 
-router.get("/:id", getSingleUser)
+router.post("/", getSingleUser)
 
 module.exports = router

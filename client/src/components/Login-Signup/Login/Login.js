@@ -13,6 +13,8 @@ import { AiOutlineGoogle } from "react-icons/ai";
 import { ImFacebook } from "react-icons/im";
 import { GoLocation } from "react-icons/go";
 
+import { updateUserStorage } from '../../../functions/set-user'
+
 const Login = () => {
 
     const { dispatch } = useUser()
@@ -47,7 +49,9 @@ const Login = () => {
         try {
             const res = await axios.post("/login", val)
             dispatch({ type: "login", payload: res.data })
-            localStorage.setItem('user', JSON.stringify(res.data))
+            // localStorage.setItem('user', JSON.stringify(res.data))
+            console.log(JSON.stringify(res.data))
+            updateUserStorage(JSON.stringify(res.data))
             redirect("/profile")
         } catch (err) {
             setResult(prevState => "fail")
