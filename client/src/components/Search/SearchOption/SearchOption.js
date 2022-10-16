@@ -4,29 +4,33 @@ import SearchOptionOption from './SearchOptionOption/SearchOptionOption'
 
 import { Container, Value, Button } from './SearchOptionStyle'
 
-const SearchOption = ({ title, options }) => {
-
+const SearchOption = ({ setter, getter, title, options, values }) => {
     return <Container>
+
         <section className="">
             <h3>{title}</h3>
             {options ? (options.map((option, index) => {
-                console.log("The current iteration is: " + index)
                 return <>
 
-                    <SearchOptionOption key={index} title={option.title} />
+                    <SearchOptionOption mainTitle={title} setter={setter} getter={getter} values={values} key={index} title={option.title} />
 
                 </>
 
-            })) : (
-                <form action="">
-                    <Button>+</Button>
-                    <Value>1</Value>
+            })) : (<>
+                {/** title.toLowerCase() */}
+                <Button onClick={() => setter({ ...getter, [title.toLowerCase()]: getter[title.toLowerCase()] + 1 })} >+</Button>
+                <Value>{values}</Value>
+                {getter[title.toLowerCase()] > 0 ? (
+                    <Button onClick={() => setter({ ...getter, [title.toLowerCase()]: getter[title.toLowerCase()] - 1 })}>-</Button>
+                ) : (
                     <Button>-</Button>
-                </form>
+                )}
+
+            </>
             )}
         </section>
 
-    </Container>
+    </Container >
 
 }
 

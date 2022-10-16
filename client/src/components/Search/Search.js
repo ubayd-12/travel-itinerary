@@ -1,6 +1,10 @@
-import { React, useState } from 'react'
+import { React, useEffect, useReducer, useState } from 'react'
 
 import axios from 'axios'
+
+import firstFourNums from '../../functions/firstFourNum';
+import filterArr from '../../functions/filterArr';
+import { filterArrNum } from '../../functions/filterArr';
 
 import Map, { Marker, NavigationControl } from 'react-map-gl';
 
@@ -13,56 +17,69 @@ import SearchOption from './SearchOption/SearchOption';
 
 import { MdHotel } from "react-icons/md";
 
-const aFetch = async (url) => {
-
-    const res = await fetch(url)
-    return await res.json()
-
-}
-
-const data = aFetch("https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json")
-
-console.log(data)
 
 const Search = () => {
 
-    // const [loading, setLoading] = useState(true)
+    const url = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json'
 
-    // const [error, setError] = useState(false)
+    const fetchCities = async () => {
 
-    // const verify = async () => {
+        const res = await fetch(url)
+        const data = await res.json()
+        setCities(prevState => filterArrNum(50, data, "rank"))
+        setSearch(filterArr("Boston", data, "city")[0])
 
-    //     try {
-    //         const res = await axios.get("http://localhost:8000/protected", { headers: { "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlwiNjJmOWI5Njk3NDkzYTQ5ZDFhNTg4ZGVhXCIiLCJpYXQiOjE2NjIyNDk3OTksImV4cCI6MTY2MjI1MzM5OX0.W8LQfybBeV5_fZ5VxLcwYTC6alEompWXzYPZrMJue08` } })
-    //         console.log(res.data)
-    //         setLoading(prevState => false)
-    //     } catch (err) {
-    //         setError(prevState => true)
-    //     }
+    }
 
-    // }
+    const [search, setSearch] = useState({})
 
-    // verify()
+    const [cities, setCities] = useState([])
 
-    // if (loading && error) return <Container>
-    //     <Navbar bg={"black"} />
-    //     <h1>Error</h1>
-    // </Container>
+    const [tempSearch, setTempSearch] = useState("Boston")
 
-    // if (loading) return <Container>
-    //     <Navbar bg={"black"} />
-    //     <h1>Loading</h1>
-    // </Container>
+    const [fields, setFields] = useState({
+        people: { adults: 0, children: 0 },
+        rooms: 0,
+        beds: 0,
+        pets: 0
+    })
+
+    useEffect(() => {
+
+        fetchCities()
+
+    }, [])
+
+    const handleSubmit = (e) => {
+
+        e.preventDefault();
+    }
+
+    const handleSubmit2 = (e) => {
+
+        e.preventDefault();
+        setSearch(filterArr(tempSearch, cities, "city")[0])
+
+    }
+
+    const handleChange = (e) => {
+
+        setTempSearch(prevState => e.target.value)
+
+    }
 
     return <Container>
         <Navbar bg={"black"} />
         <Main className='Main'>
-            <div className="sidebar">
-                <SearchOption className="SearchOption" title="People" options={[{ title: "Adults" }, { title: "Children" }]} />
-                <SearchOption className="SearchOption" title="Rooms" />
-                <SearchOption className="SearchOption" title="Beds" />
-                <SearchOption className="SearchOption" title="Pets" />
-            </div>
+            <form onSubmit={handleSubmit}>
+                <div className="sidebar">
+                    <SearchOption setter={setFields} getter={fields} values={fields.people} className="SearchOption" title="People" options={[{ title: "Adults" }, { title: "Children" }]} />
+                    <SearchOption setter={setFields} getter={fields} values={fields.rooms} className="SearchOption" title="Rooms" />
+                    <SearchOption setter={setFields} getter={fields} values={fields.beds} className="SearchOption" title="Beds" />
+                    <SearchOption setter={setFields} getter={fields} values={fields.pets} className="SearchOption" title="Pets" />
+                </div>
+                <button type='submit'>Submit</button>
+            </form>
             <div className="map">
                 <div className="map-container">
 
@@ -74,23 +91,36 @@ const Search = () => {
                         }}
                         mapStyle="mapbox://styles/ubayd-12/cl6o5poqd004b16pkyz56fmsz"
                         mapboxAccessToken="pk.eyJ1IjoidWJheWQtMTIiLCJhIjoiY2w2bzVoaGY2MDI1ajNrdGVycjF5ZW40ayJ9.DMFtkRcqlTGpfYo0Un2DHA"
+
+                        viewState={search && {
+                            longitude: firstFourNums(search.longitude),
+                            latitude: firstFourNums(search.latitude),
+                            zoom: 11
+                        }}
+
                     >
                         <NavigationControl className="map-control" />
-                        <Marker longitude={-93.2650} latitude={44.9778} anchor="bottom" >
-                            <MdHotel className='hotel-pin' />
-                        </Marker>
-                        <Marker longitude={-76} latitude={37} anchor="bottom" >
-                            <MdHotel className='hotel-pin' />
-                        </Marker>
+                        {cities && (cities.map((city) => {
+
+                            const lon = firstFourNums(city.longitude)
+                            const lat = firstFourNums(city.latitude)
+
+                            return <Marker longitude={lon} latitude={lat} anchor="bottom" >
+                                <MdHotel className='hotel-pin' />
+                            </Marker>
+
+                        }))}
                     </Map>
                 </div>
-                <form action="">
-                    <input type="text" />
-                    <button><AiOutlineSearch className='search-icon' /></button>
+                <form action="" onSubmit={handleSubmit2}>
+                    <input type="text" name='city' value={tempSearch} onChange={handleChange} />
+                    <button type='submit'><AiOutlineSearch className='search-icon' /></button>
                 </form>
             </div>
         </Main>
     </Container>
+
+
 }
 
 export default Search
