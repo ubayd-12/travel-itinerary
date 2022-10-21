@@ -6,7 +6,7 @@ import firstFourNums from '../../functions/firstFourNum';
 import filterArr from '../../functions/filterArr';
 import { filterArrNum } from '../../functions/filterArr';
 
-import Map, { Marker, NavigationControl } from 'react-map-gl';
+import Map, { Marker, NavigationControl, useMap } from 'react-map-gl';
 
 import Navbar from '../Navbar/Navbar'
 
@@ -37,6 +37,8 @@ const Search = () => {
 
     const [tempSearch, setTempSearch] = useState("Boston")
 
+    const [autoComplete, setAutoComplete] = useState([])
+
     const [fields, setFields] = useState({
         people: { adults: 0, children: 0 },
         rooms: 0,
@@ -63,10 +65,28 @@ const Search = () => {
     }
 
     const handleChange = (e) => {
-
+        //arr.slice(0, 3)
         setTempSearch(prevState => e.target.value)
+        setAutoComplete(prevState => {
+            const temp = cities.filter((city) => {
+                let temp = 0;
+                for (let i = 0; i < e.target.value.length; i++) {
+                    if (city.city[i] === e.target.value[i]) {
+                        temp++;
+                    }
+                }
+                return temp === e.target.value.length
+            })
+            return temp.slice(0, 5)
+        })
 
     }
+
+    const [viewState, setViewState] = useState({
+        longitude: -93.258133,
+        latitude: 44.986656,
+        zoom: 11
+    });
 
     return <Container>
         <Navbar bg={"black"} />
@@ -84,19 +104,10 @@ const Search = () => {
                 <div className="map-container">
 
                     <Map
-                        initialViewState={{
-                            longitude: -93.2650,
-                            latitude: 44.9778,
-                            zoom: 11
-                        }}
+                        {...viewState}
+                        onMove={e => setViewState(e.viewState)}
                         mapStyle="mapbox://styles/ubayd-12/cl6o5poqd004b16pkyz56fmsz"
                         mapboxAccessToken="pk.eyJ1IjoidWJheWQtMTIiLCJhIjoiY2w2bzVoaGY2MDI1ajNrdGVycjF5ZW40ayJ9.DMFtkRcqlTGpfYo0Un2DHA"
-
-                        viewState={search && {
-                            longitude: firstFourNums(search.longitude),
-                            latitude: firstFourNums(search.latitude),
-                            zoom: 11
-                        }}
 
                     >
                         <NavigationControl className="map-control" />
@@ -110,15 +121,23 @@ const Search = () => {
                             </Marker>
 
                         }))}
+
                     </Map>
                 </div>
                 <form action="" onSubmit={handleSubmit2}>
                     <input type="text" name='city' value={tempSearch} onChange={handleChange} />
                     <button type='submit'><AiOutlineSearch className='search-icon' /></button>
                 </form>
+                {(autoComplete && tempSearch) && <div className="options">
+                    <ul>
+                        {autoComplete.map((city) => {
+                            return <li onClick={() => { setSearch(filterArr(city.city, cities, "city")[0]); setTempSearch(city.city); setAutoComplete([]); console.log(filterArr(city.city, cities, "city")[0]); setViewState({ longitude: firstFourNums(search.longitude), latitude: firstFourNums(search.latitude), zoom: 11 }) }}>{city.city}</li>
+                        })}
+                    </ul>
+                </div>}
             </div>
         </Main>
-    </Container>
+    </Container >
 
 
 }

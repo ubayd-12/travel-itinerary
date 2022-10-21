@@ -88,9 +88,51 @@ export const Main = styled.div`
         width: 200px;
         height: 40px;
         border: none;
-        border-radius:30px 0 0 30px; 
+        border-radius:30px 0 0 30px; //last one 30px 
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         padding: 0 0 0 15px;
+        outline: none;
+    }
+
+    .map .mapboxgl-ctrl-top-right {
+        position: relative;
+        top: 150px;
+    }
+
+    .map .options {
+
+        position: absolute;
+        top: 150px;
+        right: 50px;
+        float:right;
+        margin: 20px 20px 0 0;
+        width: 215px;
+        background-color: white;
+        border-radius:30px 30px 30px 30px; //last one 30px 
+        height: fit-content;
+
+    }
+
+    .map .options ul {
+
+        list-style: none;
+        margin: 0;
+        padding:0 10px;
+        width: fit-content;
+
+    }
+
+    .map .options ul li {
+
+        margin: 10px 0;
+        padding:5px 0;
+
+    }
+
+    .map .options ul li:hover {
+        background-color: rgb(237, 237, 237);
+        cursor: pointer;
+
     }
 
     .map button {
@@ -116,6 +158,7 @@ export const Main = styled.div`
     position: absolute;
     top: 170px;
     right: 30px;
+    color:red;
 
     }
 
