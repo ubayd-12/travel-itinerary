@@ -66,7 +66,7 @@ const ProfilePic = ({ size, edit, border }) => {
 
         try {
 
-            const res = await fetch("/api/uploads", {
+            const res = await fetch("/api/uploads/profile-picture", {
                 method: "POST",
                 body: JSON.stringify({ data: base64EncodedImage }),
                 headers: {

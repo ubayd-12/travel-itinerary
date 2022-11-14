@@ -55,6 +55,39 @@ export const Search = styled.div`
         transition: 0.3s background-color ease;
     }
 
+    form .cities {
+        margin: 10px 0;
+        /* padding: 5px 0; */
+        background-color: white;
+        border-radius: 10px;
+
+    }
+
+    form .cities ul {
+
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+    }
+
+    form .cities ul li {
+
+        margin: 0;
+        padding: 10px;
+        transition: 0.2s ease background-color;
+        border-radius: 10px;
+
+    }
+
+    form .cities ul li:hover {
+
+        transition: 0.2s ease background-color;
+        background-color: #f0eff0;
+        cursor: pointer;
+
+    }
+
     @media screen and  (max-width: 675px) {
     input{
         width: 80vw;

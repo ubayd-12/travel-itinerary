@@ -7,7 +7,7 @@ export const Container = styled.div`
     height: 100vh;
 
     .map-container {
-        height: 100%;
+        height: 86vh;
     }
 
     .map-container .hotel-pin {
@@ -35,7 +35,49 @@ export const Container = styled.div`
 
     }
 
-    @media screen and (max-width: 675px) {
+    .map-container .trip-options {
+
+        position: absolute;
+        top: 130px;
+        margin: 10px ;
+        background-color: rgb(255, 255, 255, 0.8);
+        width: 300px;
+        height: 70%;
+        border-radius: 30px;
+        overflow-y:auto
+
+    }
+
+    .map-container .trip-options .trip-options-option {
+
+        /* padding: 10px; */
+        cursor: pointer;
+        transition: ease background-color 0.2s;
+        padding: 0 0 15px 0;
+
+    }
+
+    .map-container .trip-options .trip-options-option h3, h4, p {
+
+        padding: 0 10px;
+
+    }
+
+    .map-container .trip-options .trip-options-option:hover {
+
+        background-color: rgb(225, 225, 225);
+        transition: ease background-color 0.2s;
+
+
+    }
+
+    .trip-options-option img {
+       max-width: 100%;
+       height: 50%;
+       border-radius: 0;
+    }
+
+    @media screen and (max-width: 800px) {
         
         .Main {
 
@@ -49,8 +91,23 @@ export const Container = styled.div`
 
         .map-container {
 
-            height: 80vh;
+            height: 70vh;
 
+        }
+
+        .mapbox{
+            height: 1px;
+        }
+
+        .map-container .trip-options {
+
+            position: static;
+            width: 100vw;
+            margin: 0;
+            padding:0;
+            border-radius: 0;
+            overflow-y:visible
+            
         }
 
     }
@@ -63,6 +120,22 @@ export const Main = styled.div`
     grid-template-columns: 1.8fr 8.2fr;
     grid-template-areas: "sidebar map";
     height: 85vh;
+
+    .filter-btn {
+        position: absolute;
+        top:650px;
+        left:85px;
+        width: 100px;
+        height: 50px;
+        border-radius: 30px;
+        border: none;
+        background-color: rgb(104, 163, 233);
+        color: white;
+    }
+
+    .filter-btn:hover {
+        cursor: pointer;
+    }
 
     .sidebar {
 
@@ -167,6 +240,15 @@ export const Main = styled.div`
     border-radius: 10px 10px 10px 10px;
     margin: 10px 10px;
     cursor: pointer;
+
+    }
+
+    @media screen and (max-width: 675px) {
+        
+        .map .mapboxgl-ctrl-top-right {
+        top:445px;
+        right:250px;
+    }
 
     }
 

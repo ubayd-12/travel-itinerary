@@ -3,12 +3,13 @@ import React from 'react'
 import { Container } from './HotelCardStyle'
 import image from './Images/image.jpg'
 
-const HotelCard = () => {
+const HotelCard = ({ hotel }) => {
+    console.log(hotel)
     return <Container>
 
-        <img src={image} className="image" alt='Background'>
+        <img src={hotel.image} className="image" alt='Background'>
         </img>
-        <span className='image-text'>Hilton San Diego</span>
+        <span className='image-text'>{hotel.name}</span>
         <div className="info">
             <div className="hotel-rating">
                 <h4>4 Star Hotel</h4>

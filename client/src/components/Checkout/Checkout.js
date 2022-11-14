@@ -11,7 +11,11 @@ import RoomCheckout from './RoomCheckout/RoomCheckout'
 import Payment from '../Payment/Payment'
 import HotelCard from '../HotelCard/HotelCard'
 
+import { useLocation } from 'react-router-dom';
+
 const Checkout = () => {
+    const location = useLocation()
+    const hotel = location.state
     return <div>
         <Navbar bg={"black"} />
         <Container>
@@ -80,7 +84,7 @@ const Checkout = () => {
                 </div>
             </CheckoutDiv>
             <div className="test">
-                <HotelCard />
+                <HotelCard hotel={hotel} />
             </div>
         </Container>
     </div>

@@ -8,6 +8,10 @@ import Login from './components/Login-Signup/Login/Login';
 import Signup from './components/Login-Signup/Signup/Signup';
 import ProfilePage from './components/Profile/ProfilePage'
 import Testing from './components/Testing/Testing';
+import CreateHotel from './components/Admin/Hotels/CreateHotel/CreateHotel';
+import GetHotels from './components/Admin/Hotels/GetHotels/GetHotels';
+import Payment from './components/Payment/Payment';
+import Checkout from './components/Checkout/Checkout'
 
 function App() {
 
@@ -30,6 +34,9 @@ function App() {
       <Route path='/profile' element={<ProfilePage />}></Route>
       <Route path='/maps' element={<Search />}></Route>
       <Route path='/testing' element={<Testing />}></Route>
+      <Route path='/admin/create-hotel' element={<CreateHotel />}></Route>
+      <Route path='/admin/get-hotels' element={<GetHotels />}></Route>
+      <Route path='/checkout' element={<Checkout />}></Route>
     </Routes>
   </div>;
 }

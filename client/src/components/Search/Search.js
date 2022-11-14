@@ -1,5 +1,7 @@
 import { React, useEffect, useReducer, useState } from 'react'
 
+import { useLocation, Link } from 'react-router-dom';
+
 import axios from 'axios'
 
 import firstFourNums from '../../functions/firstFourNum';
@@ -17,8 +19,17 @@ import SearchOption from './SearchOption/SearchOption';
 
 import { MdHotel } from "react-icons/md";
 
+import { filterArrWOptions } from '../../functions/filterArr';
 
 const Search = () => {
+
+    const location = useLocation()
+
+    let hpCity = "";
+
+    if (location.state != null) {
+        hpCity = location.state.hpCity
+    }
 
     const url = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json'
 
@@ -31,13 +42,28 @@ const Search = () => {
 
     }
 
+    const fetchHotels = async () => {
+        const { data } = await axios.get("/hotels")
+        setHotels(prevState => data)
+        setFilteredHotels(prevState => data)
+        setTempFilteredHotels(prevState => data)
+    }
+
+    let submit = false;
+
     const [search, setSearch] = useState({})
 
     const [cities, setCities] = useState([])
 
-    const [tempSearch, setTempSearch] = useState("Boston")
+    const [tempSearch, setTempSearch] = useState(hpCity || "Boston")
 
     const [autoComplete, setAutoComplete] = useState([])
+
+    const [hotels, setHotels] = useState([]);
+
+    const [filteredHotels, setFilteredHotels] = useState([])
+
+    const [tempFilteredHotels, setTempFilteredHotels] = useState([])
 
     const [fields, setFields] = useState({
         people: { adults: 0, children: 0 },
@@ -49,12 +75,23 @@ const Search = () => {
     useEffect(() => {
 
         fetchCities()
-
+        fetchHotels()
     }, [])
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        hpCity && cities.length > 0 && setViewState({ longitude: firstFourNums(filterArr(hpCity, cities, "city")[0].longitude), latitude: firstFourNums(filterArr(hpCity, cities, "city")[0].latitude), zoom: 11 })
+    }, [cities])
 
+    const handleSubmit = (e) => {
         e.preventDefault();
+        const options = { beds: fields.beds, people: fields.people.adults + fields.people.children }
+        if (options.beds === 0 && options.people === 0) {
+            const newFilter = hotels
+            setTempFilteredHotels(prevState => newFilter)
+        } else {
+            const newFilter = filterArrWOptions(hotels, options)
+            setTempFilteredHotels(prevState => newFilter)
+        }
     }
 
     const handleSubmit2 = (e) => {
@@ -81,7 +118,7 @@ const Search = () => {
         })
 
     }
-
+    // longitude: (cities.length > 0 && firstFourNums(filterArr(hpCity, cities, "city")[0].longitude)) || -98.258133,
     const [viewState, setViewState] = useState({
         longitude: -93.258133,
         latitude: 44.986656,
@@ -98,12 +135,13 @@ const Search = () => {
                     <SearchOption setter={setFields} getter={fields} values={fields.beds} className="SearchOption" title="Beds" />
                     <SearchOption setter={setFields} getter={fields} values={fields.pets} className="SearchOption" title="Pets" />
                 </div>
-                <button type='submit'>Submit</button>
+                {/* <button type='submit'>Submit</button> */}
             </form>
+            <button className='filter-btn' onClick={() => setFilteredHotels(prevState => tempFilteredHotels)}>Filter</button>
             <div className="map">
                 <div className="map-container">
 
-                    <Map
+                    <Map className="mapbox"
                         {...viewState}
                         onMove={e => setViewState(e.viewState)}
                         mapStyle="mapbox://styles/ubayd-12/cl6o5poqd004b16pkyz56fmsz"
@@ -112,7 +150,6 @@ const Search = () => {
                     >
                         <NavigationControl className="map-control" />
                         {cities && (cities.map((city) => {
-
                             const lon = firstFourNums(city.longitude)
                             const lat = firstFourNums(city.latitude)
 
@@ -123,6 +160,18 @@ const Search = () => {
                         }))}
 
                     </Map>
+                    <div className="trip-options">
+                        {filteredHotels.map((hotel) => {
+                            return <Link to='/checkout' state={hotel}>
+                                <div className="trip-options-option" onClick={() => setViewState({ longitude: firstFourNums(filterArr(hotel.city, cities, "city")[0].longitude), latitude: firstFourNums(filterArr(hotel.city, cities, "city")[0].latitude), zoom: 11 })}>
+                                    <img src={hotel.image} alt="" />
+                                    <h3>{hotel.name}</h3>
+                                    <h4>{hotel.city}</h4>
+                                    <p>January 5th, January 16th</p>
+                                </div>
+                            </Link>
+                        })}
+                    </div>
                 </div>
                 <form action="" onSubmit={handleSubmit2}>
                     <input type="text" name='city' value={tempSearch} onChange={handleChange} />
@@ -131,7 +180,8 @@ const Search = () => {
                 {(autoComplete && tempSearch) && <div className="options">
                     <ul>
                         {autoComplete.map((city) => {
-                            return <li onClick={() => { setSearch(filterArr(city.city, cities, "city")[0]); setTempSearch(city.city); setAutoComplete([]); console.log(filterArr(city.city, cities, "city")[0]); setViewState({ longitude: firstFourNums(search.longitude), latitude: firstFourNums(search.latitude), zoom: 11 }) }}>{city.city}</li>
+                            console.log(filterArr(city.city, cities, "city")[0].city)
+                            return <li onClick={() => { setTempSearch(city.city); setAutoComplete([]); setViewState({ longitude: firstFourNums(filterArr(city.city, cities, "city")[0].longitude), latitude: firstFourNums(filterArr(city.city, cities, "city")[0].latitude), zoom: 11 }) }}>{city.city}</li>
                         })}
                     </ul>
                 </div>}

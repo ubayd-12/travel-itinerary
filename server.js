@@ -14,6 +14,8 @@ const connectDB = require('./server-side/db/connection')
 
 const accounts = require('./server-side/routes/accounts')
 
+const hotels = require('./server-side/routes/hotels')
+
 const register = require('./server-side/routes/register')
 
 const login = require('./server-side/routes/login')
@@ -44,6 +46,8 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 app.use("/accounts", accounts)
+
+app.use("/hotels", hotels)
 
 app.use("/register", register)
 
