@@ -51,6 +51,14 @@ export const CheckoutDiv = styled.div`
     height: fit-content;
     padding: 25px;
 
+    .form-err {
+
+        margin: 10px 0;
+        font-size: 20px;
+        color:red
+
+    }
+
     @media screen and (max-width: 675px) {
         
         margin: 10px;
@@ -359,6 +367,10 @@ export const CheckoutDiv = styled.div`
             cursor: pointer;
             text-align: center;
 
+        }
+
+        .btn-err {
+        background-color:#F76B6B;
         }
 
         .complete-booking-arrow {

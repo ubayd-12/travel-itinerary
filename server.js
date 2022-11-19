@@ -28,6 +28,8 @@ const protected = require('./server-side/routes/protected')
 
 const photoUploads = require('./server-side/routes/photoUploads')
 
+const reservations = require('./server-side/routes/reservations')
+
 const app = express()
 
 app.use(express.json({ limit: '50mb' }))
@@ -60,6 +62,8 @@ app.use("/test", test)
 app.use("/protected", protected)
 
 app.use('/api/uploads', photoUploads)
+
+app.use('/api/reservations', reservations)
 
 app.get("/", (req, res) => {
 

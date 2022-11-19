@@ -18,6 +18,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { createArrFromNum, createArrAdults } from '../../functions/createArr';
 
+import axios from 'axios';
+
 const Checkout = () => {
     const location = useLocation()
     const hotel = location.state
@@ -26,11 +28,12 @@ const Checkout = () => {
         let path = `/confirmation`;
         navigate(path);
     }
+
     const adult = createArrFromNum(hotel.people)
     const room = { num: 1, beds: hotel.beds, adults: hotel.people }
 
     const defaultValues = {
-        adults: createArrAdults(hotel.people),  //[{ firstName: "", lastName: "", dob: "", phone: "" }, { firstName: "", lastName: "", dob: "", phone: "" }]
+        adults: createArrAdults(hotel.people),
         card: {
             name: "",
             number: "",
@@ -39,27 +42,59 @@ const Checkout = () => {
             secCode: "",
             zipCode: "",
         },
+        protection: "No response",
         confirmationEmail: ""
     }
 
     const [values, setValues] = useState(defaultValues)
+    const [test, setTest] = useState(false)
+    const [error, setError] = useState({ error: false, msg: [] })
 
     const handleChange = (e, sec, specific) => {
 
         const name = e.target.name
         const val = e.target.value
         if (specific === "adult") {
-            console.log(sec)
-            if (name === "phone") {
-                setValues({ ...values, adults: [...values.adults, values.adults[sec][name] = val] })
+            let newArr = values.adults
+            newArr[sec][name] = val
+            setValues({ ...values, adults: newArr })
+            console.log(values)
+        } else if (sec === "protection") {
+            setValues({ ...values, protection: specific })
+        } else if (sec === "card-month") {
+            setValues({ ...values, card: { ...values.card, eMonth: val } })
+        } else if (sec === "card") {
+            if (name === "number" || name === "eYear" || name === "secCode" || name === "zipCode") {
+                if (values.card[name].length >= specific) {
+                    if (val.length < values.card[name].length) {
+                        setValues({ ...values, card: { ...values.card, [name]: val } })
+                    }
+                } else {
+                    setValues({ ...values, card: { ...values.card, [name]: val } })
+                }
             } else {
-                setValues({ ...values, adults: [...values.adults, values.adults[sec][name] = val] })
+                setValues({ ...values, card: { ...values.card, [name]: val } })
             }
-        } else if (sec == "card") {
-            setValues({ ...values, card: { ...values.card, [name]: val } })
         } else {
             setValues({ ...values, [name]: val })
         }
+    }
+
+    const handleSubmit = async (e) => {
+
+        e.preventDefault();
+        setTest(prevState => !prevState)
+        try {
+            console.log(values.adults.length)
+            console.log(adult.length)
+            const res = await axios.post("/api/reservations", values)
+            // console.log(res)
+            routeChange();
+        } catch (err) {
+            const msg = err.response.data.err
+            setError({ ...error, error: true, msg })
+        }
+
     }
 
     return <div>
@@ -67,7 +102,20 @@ const Checkout = () => {
         <Navbar bg={"black"} />
         <Container>
             <CheckoutDiv>
-                <form>
+                <form action='submit' onSubmit={handleSubmit}>
+                    {error.error && (
+                        <>
+                            <p className='form-err'>Missing</p>
+                            {error.msg.map((msg) => {
+
+                                return <p className='form-err'>
+                                    • {msg}
+                                </p>
+
+                            })}
+                            <p className='form-err'>fields(s)</p>
+                        </>
+                    )}
                     <div className="customer-info">
                         {/** below is the original roomCheckout */}
                         {/* <RoomCheckout room={{ num: 1, beds: 2, adults: 2 }} adult={[{ num: 1 }, { num: 2 }]} /> */}
@@ -124,7 +172,7 @@ const Checkout = () => {
                         </div>
                         <h2>Select yes or no to continue with your booking:</h2>
                         <div className='accept-protection'>
-                            <input type="radio" name="" id="" />
+                            <input type="radio" name="protection" id="" onChange={(e) => handleChange(e, "protection", true)} />
                             <label>Yes, I would like to accept trip insurace</label>
                             <div className='protection-price'>
                                 <span className='price'>$6.79</span>
@@ -132,7 +180,7 @@ const Checkout = () => {
                             </div>
                         </div>
                         <div className='decline-protection'>
-                            <input type="radio" name="" id="" />
+                            <input type="radio" name="protection" id="" onChange={(e) => handleChange(e, "protection", false)} />
                             <label>No, I would like to decline trip insurace</label>
                         </div>
                     </div>
@@ -154,11 +202,11 @@ const Checkout = () => {
                             </div>
                             <div className="payment-input-field">
                                 <label htmlFor="">Credit/Debit card number:</label>
-                                <input type="number" className='card-number-input' name='number' value={values.card.number} onChange={(e) => handleChange(e, "card")} />
+                                <input type="number" className='card-number-input' name='number' value={values.card.number} onChange={(e) => handleChange(e, "card", 16)} />
                             </div>
                             <div className="payment-input-field">
                                 <label htmlFor="">Expiration Date:</label>
-                                <select placeholder='Month'>
+                                <select onChange={(e) => handleChange(e, "card-month")} placeholder='Month'>
                                     <option>Month</option>
                                     <option>January</option>
                                     <option>February</option>
@@ -173,15 +221,15 @@ const Checkout = () => {
                                     <option>November</option>
                                     <option>December</option>
                                 </select>
-                                <input type="number" name="eYear" id="" placeholder='Year' className='card-expiration-input' value={values.card.eYear} onChange={(e) => handleChange(e, "card")} />
+                                <input type="number" name="eYear" id="" placeholder='Year' className='card-expiration-input' value={values.card.eYear} onChange={(e) => handleChange(e, "card", 4)} />
                             </div>
                             <div className="payment-input-field">
                                 <label htmlFor="">Security code:</label>
-                                <input type="number" name="secCode" id="" className='card-security-code-input' value={values.card.secCode} onChange={(e) => handleChange(e, "card")} />
+                                <input type="number" name="secCode" id="" className='card-security-code-input' value={values.card.secCode} onChange={(e) => handleChange(e, "card", 3)} />
                             </div>
                             <div className="payment-input-field">
                                 <label htmlFor="">Billing ZIP code:</label>
-                                <input type="number" name="zipCode" id="" className='card-zip-code-input' value={values.card.zipCode} onChange={(e) => handleChange(e, "card")} />
+                                <input type="number" name="zipCode" id="" className='card-zip-code-input' value={values.card.zipCode} onChange={(e) => handleChange(e, "card", 5)} />
                             </div>
                         </Form>
                     </div>
@@ -203,9 +251,39 @@ const Checkout = () => {
                             <p>We use secure transmission and encrypted storage to protect your personal information. This payment will be processed in the U.S. This does not apply when the travel provider (airline/hotel/rail, etc.) processes your payment.
                             </p>
                         </div>
-                        <button className='complete-booking-btn' onClick={routeChange}>Complete your booking<FaArrowRight className='complete-booking-arrow' /></button>
+                        {/* <button className={"complete-booking-btn"} type='submit' >Complete your booking<FaArrowRight className='complete-booking-arrow' /></button> */}
+                        <button className={error.error ? "complete-booking-btn btn-err" : "complete-booking-btn"} type='submit' >Complete your booking<FaArrowRight className='complete-booking-arrow' /></button>
+
                     </div>
                 </form>
+                {/* {test && (
+                    <div className="">
+                        {values.adults.map((adult) => {
+                            <h3>Adult:</h3>
+                            return <>
+
+                                <h4>{adult.firstName}</h4>
+                                <h4>{adult.lastName}</h4>
+                                <h4>{adult.dob}</h4>
+                                <h4>{adult.phone}</h4>
+
+                            </>
+                        })}
+                        <br></br>
+                        <h3>Card on file:</h3>
+                        <h4>{values.card.name}</h4>
+                        <h4>{values.card.number}</h4>
+                        <h4>{values.card.eMonth}</h4>
+                        <h4>{values.card.eYear}</h4>
+                        <h4>{values.card.secCode}</h4>
+                        <h4>{values.card.zipCode}</h4>
+                        <br></br>
+                        <h3>Protection:</h3>
+                        <h4>{values.protection}</h4>
+                        <h3>Confirmation Email:</h3>
+                        <h4>{values.confirmationEmail}</h4>
+                    </div>
+                )} */}
             </CheckoutDiv>
             <div className="test">
                 <HotelCard hotel={hotel} />
