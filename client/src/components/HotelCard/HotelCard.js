@@ -4,7 +4,6 @@ import { Container } from './HotelCardStyle'
 import image from './Images/image.jpg'
 
 const HotelCard = ({ hotel }) => {
-    console.log(hotel)
     return <Container>
 
         <img src={hotel.image} className="image" alt='Background'>

@@ -2,6 +2,12 @@ import styled from "styled-components";
 
 export const Container = styled.div`
 
+//
+
+
+
+
+//
     display: grid;
     grid-template-columns: 65% 35%;
     .test {
@@ -65,6 +71,12 @@ export const CheckoutDiv = styled.div`
 
         }
 
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
     }
 
     .bold {
@@ -144,7 +156,7 @@ export const CheckoutDiv = styled.div`
 
     }
 
-    .hotel-protection form h2 {
+    .hotel-protection h2 {
 
         font-weight: 200;
         margin-bottom: 15px;
@@ -279,13 +291,13 @@ export const CheckoutDiv = styled.div`
 
         }
 
-        .manage-booking form {
+        .manage-booking div {
 
             margin-bottom: 15px;
 
         }
 
-        .manage-booking form label {
+        .manage-booking div label {
 
             color:#717171;
             display: block;
@@ -294,7 +306,7 @@ export const CheckoutDiv = styled.div`
 
         }
 
-        .manage-booking form input {
+        .manage-booking div input {
 
             height:30px;
             padding: 0px 10px;

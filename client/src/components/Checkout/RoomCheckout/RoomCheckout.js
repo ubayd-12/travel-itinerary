@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { Container } from './RoomCheckoutStyle'
+import { RoomContainer } from './RoomCheckoutStyle'
 
 const RoomCheckout = ({ room, adult }) => {
-    return <Container>
+    return <RoomContainer>
 
         <h1 className='room-num'>Room {room.num}</h1>
         <span className='room-details'>{room.beds} beds, {room.adults} adults</span>
@@ -36,7 +36,7 @@ const RoomCheckout = ({ room, adult }) => {
         })}
 
 
-    </Container>
+    </RoomContainer>
 }
 
 export default RoomCheckout

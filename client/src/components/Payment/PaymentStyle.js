@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 
-export const Form = styled.form`
+export const Form = styled.div`
 
+    margin-top: 20px;
     background-color: white;
     border: 1px #707070 solid;
     padding: 20px;

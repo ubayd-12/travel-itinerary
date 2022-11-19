@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const RoomContainer = styled.div`
 
     @media screen and (max-width: 675px) {
         
@@ -46,7 +46,7 @@ export const Container = styled.div`
 
     }
 
-    form {
+    .room-div {
 
         margin: 10px 10px 10px 50px;
         display: grid;
@@ -56,7 +56,7 @@ export const Container = styled.div`
 
     @media screen and (max-width: 1060px) {
         
-        form {
+        .room-div {
 
             display: inline;
 
@@ -64,23 +64,23 @@ export const Container = styled.div`
 
     }
 
-    form div {
+    .room-div div {
 
         margin: 10px;
 
     }
 
-    form h3 {
+    .room-div h3 {
 
         font-weight: 100;
 
     }
 
-    form input, label {
+    .room-div input, label {
         display: block;
     }
 
-    form label {
+    .room-div label {
 
         font-size: 18px;
         color:#4B4B4B;
@@ -88,7 +88,7 @@ export const Container = styled.div`
 
     }
 
-    form input {
+    .room-div input {
 
         border: 1px grey solid;
         width: 70%;
