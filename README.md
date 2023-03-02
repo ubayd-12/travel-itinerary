@@ -3,14 +3,26 @@
 Travel Itinerary - A Full Stack MERN Application
 Travel Itinerary is a full-stack MERN application that mimics the functionalities of an online travel fare aggregator. The application uses modern technologies like JavaScript, ReactJS, NodeJS, ExpressJS, MongoDB, Mongoose, HTML, CSS, and more.
 
-Features
-User authentication - Users can sign up and log in to the application with their email and password.
-CRUD operations - Users can create, read, update, and delete travel itineraries.
-Search - Users can search for specific itineraries based on the location, date, or any relevant keywords.
-Map integration - Users can view the location of the itinerary on the map.
-Responsive Design - The application is designed to be responsive and accessible on all devices.
-Installation
-To run the application, you must have Node.js and MongoDB installed on your system.
+Key Features
+User Authentication - The application includes user authentication using web tokens via cookies and local storage.
+User Creation - Users can create an account in the application.
+Persistent Login - Users can remain logged in even after they close the application.
+API Integration - The application integrates with multiple APIs, including Mapbox and Cloudinary. It also has custom curated and created APIs.
+Data Storage - The application uses a MongoDB database for data storage.
+
+Technologies Used
+This project utilizes a variety of technologies, including:
+
+JavaScript
+React.js
+Node.js
+Express.js
+Axios
+Cloudinary
+Mapbox
+MongoDB
+Microsoft Azure
+Mongoose
 
 Clone the repository to your local machine using the command git clone https://github.com/your-username/travel-itinerary.git.
 Install the dependencies by running the command npm install.
